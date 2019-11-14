@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #76add4;">
+
+  <a class="navbar-brand" href="#" style="font-style: oblique; font-weight: bold;">TickABus</a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <ul class="navbar-nav mr-auto">
+      <button data-toggle="dropdown" type="button" id="drpdwn_register" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Register</button>
+      <div class="dropdown-menu" aria-labelledby="drpdwn_register">
+          <form class="px-4 py-3" (ngSubmit)="register()" #registerForm="ngForm" oninput='drpwdn_passwordConf.setCustomValidity(drpwdn_passwordConf.value != drpwdn_password ? "Passwords do not match." : "")'>
+            <div class="form-group">
+              <label for="drpwdn_email">Email address</label>
+              <input type="email" class="form-control mr-sm-2" name="email" id="drpwdn_email" placeholder="Email Address" required [(ngModel)]="model.Email" #email="ngModel">
+              <label for="drpwdn_username">Username</label>
+              <input type="text" class="form-control mr-sm-2" name="username" id="drpwdn_username" placeholder="Username" required [(ngModel)]="model.Username" #username="ngModel">
+              <label for="drpwdn_name">Name</label>
+              <input type="text" class="form-control mr-sm-2" name="name" id="drpwdn_name" placeholder="Name" required [(ngModel)]="model.Name" #name="ngModel">
+              <label for="drpwdn_surname">Surname</label>
+              <input type="text" class="form-control mr-sm-2" name="surname" id="drpwdn_surname" placeholder="Surname" required [(ngModel)]="model.Surname" #surname="ngModel">
+              <label for="drpwdn_password">Password</label>
+              <input type="password" class="form-control mr-sm-2" name="password" id="drpwdn_password" placeholder="Password" required [(ngModel)]="model.Password" #password="ngModel">
+              <label for="drpwdn_password">Password confirmation</label>
+              <input type="password" class="form-control mr-sm-2" id="drpwdn_passwordConf" placeholder="Password Confirmation" required>
+            </div>
+            <button class="btn btn-success my-2 my-sm-0" type="submit">Submit</button>
+          </form>
+      </div>
+    </ul>
+
+    <form #loginForm="ngForm" class="form-inline mt-2 mt-md-0" (ngSubmit)="login()">
+      <input class="form-control mr-sm-2" type="text" placeholder="Username" name="username" required [(ngModel)]="model.username" #username="ngModel">
+      <input class="form-control mr-sm-2" type="password" placeholder="Password" name="password" required [(ngModel)]="model.password" #password="ngModel">
+      <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
+    </form>
+
+</nav>
