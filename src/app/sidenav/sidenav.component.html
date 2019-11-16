@@ -6,33 +6,48 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <ul class="navbar-nav mr-auto">
+  <ul *ngIf="!loggedIn()" class="navbar-nav mr-auto">
       <button data-toggle="dropdown" type="button" id="drpdwn_register" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Register</button>
       <div class="dropdown-menu" aria-labelledby="drpdwn_register">
-          <form class="px-4 py-3" (ngSubmit)="register()" #registerForm="ngForm" oninput='drpwdn_passwordConf.setCustomValidity(drpwdn_passwordConf.value != drpwdn_password ? "Passwords do not match." : "")'>
+          <form class="px-4 py-3" (ngSubmit)="register()" #registerForm="ngForm">
             <div class="form-group">
               <label for="drpwdn_email">Email address</label>
-              <input type="email" class="form-control mr-sm-2" name="email" id="drpwdn_email" placeholder="Email Address" required [(ngModel)]="model.Email" #email="ngModel">
+              <input type="email" class="form-control mr-sm-2" name="email" id="drpwdn_email" placeholder="Email Address" [(ngModel)]="model.Email" #email="ngModel">
               <label for="drpwdn_username">Username</label>
-              <input type="text" class="form-control mr-sm-2" name="username" id="drpwdn_username" placeholder="Username" required [(ngModel)]="model.Username" #username="ngModel">
+              <input type="text" class="form-control mr-sm-2" name="username" id="drpwdn_username" placeholder="Username" [(ngModel)]="model.Username" #username="ngModel">
               <label for="drpwdn_name">Name</label>
-              <input type="text" class="form-control mr-sm-2" name="name" id="drpwdn_name" placeholder="Name" required [(ngModel)]="model.Name" #name="ngModel">
+              <input type="text" class="form-control mr-sm-2" name="name" id="drpwdn_name" placeholder="Name" [(ngModel)]="model.Name" #name="ngModel">
               <label for="drpwdn_surname">Surname</label>
-              <input type="text" class="form-control mr-sm-2" name="surname" id="drpwdn_surname" placeholder="Surname" required [(ngModel)]="model.Surname" #surname="ngModel">
+              <input type="text" class="form-control mr-sm-2" name="surname" id="drpwdn_surname" placeholder="Surname" [(ngModel)]="model.Surname" #surname="ngModel">
               <label for="drpwdn_password">Password</label>
-              <input type="password" class="form-control mr-sm-2" name="password" id="drpwdn_password" placeholder="Password" required [(ngModel)]="model.Password" #password="ngModel">
+              <input type="password" class="form-control mr-sm-2" name="password" id="drpwdn_password" placeholder="Password" [(ngModel)]="model.Password" #password="ngModel">
               <label for="drpwdn_password">Password confirmation</label>
-              <input type="password" class="form-control mr-sm-2" id="drpwdn_passwordConf" placeholder="Password Confirmation" required>
+              <input type="password" class="form-control mr-sm-2" id="drpwdn_passwordConf" data-match="#drpwdn_password" data-match-error="Passwords don't match" placeholder="Password Confirmation" required>
             </div>
             <button class="btn btn-success my-2 my-sm-0" type="submit">Submit</button>
           </form>
       </div>
     </ul>
 
-    <form #loginForm="ngForm" class="form-inline mt-2 mt-md-0" (ngSubmit)="login()">
+    <div *ngIf="loggedIn()" class="dropdown">
+  <a class="dropdown-toggle text-dark">
+    Welcome 
+  </a>
+
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#"><i class="fa fa-user"></i>Edit User</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i>Logout</a>
+  </div>
+</div>
+
+    <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline ml-auto" (ngSubmit)="login()">
       <input class="form-control mr-sm-2" type="text" placeholder="Username" name="username" required [(ngModel)]="model.username" #username="ngModel">
       <input class="form-control mr-sm-2" type="password" placeholder="Password" name="password" required [(ngModel)]="model.password" #password="ngModel">
       <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
     </form>
 
+    <button *ngIf="loggedIn()" class="btn btn-warning ml-auto" (click)="logout()">Logout</button>
+ 
 </nav>
+

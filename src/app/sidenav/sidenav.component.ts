@@ -23,9 +23,19 @@ export class SidenavComponent implements OnInit {
 
   register() {
     this.authService.register(this.model).subscribe(
-      next => { console.log('Registered successfully'); },
+      next => { console.log('Registered successfully'); this.login(); },
       error => { console.log('Failed to register'); }
     );
+  }
+
+  loggedIn() {
+    const token = localStorage.getItem('token');
+    return !!token;
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    console.log('logged out');
   }
 
 }
