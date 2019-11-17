@@ -6,14 +6,13 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ValueComponent } from './value/value.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { TrackComponent } from './track/track.component';
+
 
 @NgModule({
    declarations: [
       AppComponent,
-      ValueComponent,
       SidenavComponent,
       TrackComponent
    ],

@@ -1,23 +1,26 @@
  <div class="card mt-5" style="width: 18rem;">
           <div class="card-header">
-            Pick a ticket
+            Pick a track
           </div>
           <div class="card-body">
-              <select class="selectpicker" data-live-search="true">
-                  <option data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
-                  <option data-tokens="mustard">Burger, Shake and a Smile</option>
-                  <option data-tokens="frosting">Sugar, Spice and all things nice</option>
-                </select>
-                <select class="selectpicker mt-2" data-live-search="true">
-                    <option data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
-                    <option data-tokens="mustard">Burger, Shake and a Smile</option>
-                    <option data-tokens="frosting">Sugar, Spice and all things nice</option>
-                  </select>
-                  <select class="selectpicker mt-2" data-live-search="true">
-                      <option data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
-                      <option data-tokens="mustard">Burger, Shake and a Smile</option>
-                      <option data-tokens="frosting">Sugar, Spice and all things nice</option>
-                    </select>
+            <div>
+              <select class="selectpicker mt-2" data-live-search="true">
+                  <option *ngFor="let city of cities" [value]="city">{{city.name}}</option>
+              </select>
+            </div>
+            <div>
+              <select class="selectpicker mt-2" data-live-search="true">
+                  <option *ngFor="let city of cities" [value]="city">{{city.name}}</option>
+              </select>
+            </div>
+            <div><h5>Travel after</h5></div>
+            <div class="form-group mt-2">
+                  <input type="date" max="3000-12-31" min="1000-01-01" class="form-control" id="dateSetter">
+            </div>
+            <div class="form-group mt-2">
+                <input type="time" id="timeSetter"/>
+            </div>
             <a href="#" class="btn btn-primary mt-2">Proceed</a>
           </div>
   </div>
+
