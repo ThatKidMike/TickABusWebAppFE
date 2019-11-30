@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-track',
@@ -8,6 +8,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class TrackComponent implements OnInit {
   cities: any;
+  tracks: any;
+  startingCity: any;
+  destinationCity: any;
 
   constructor(private http: HttpClient) { }
 
@@ -19,9 +22,10 @@ export class TrackComponent implements OnInit {
   getCities() {
     this.http.get('http://localhost:5000/cities/').subscribe(response => {
       this.cities = response;
+      document.getElementById('proceedBtn').addEventListener('click', this.getTracks.bind(this), true);
     }, error => {
       console.log(error);
-    })
+    });
   }
 
   setCurrentDate() {
@@ -31,5 +35,21 @@ export class TrackComponent implements OnInit {
     (document.getElementById('timeSetter') as HTMLInputElement).value
     = timeStamp[0].substring(timeStamp[0].length - 2, timeStamp[0].length) + ':' + timeStamp[1];
   }
+
+  getTracks() {
+    const dateParams = (document.getElementById('dateSetter') as HTMLInputElement).value;
+    const timeParams = (document.getElementById('timeSetter') as HTMLInputElement).value;
+    const dateTimeParams = dateParams + ' ' + timeParams;
+    const trackParams = new HttpParams().set('StartingCityId', this.startingCity.id).set('DestinationCityId', this.destinationCity.id)
+                                      .set('Date', dateTimeParams);
+    this.http.get('http://localhost:5000/tracks/', {params: trackParams}).subscribe(response => {
+      this.tracks = response;
+    }, error => {
+      console.log(error);
+    });
+
+  }
+
+
 
 }

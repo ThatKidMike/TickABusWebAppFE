@@ -4,23 +4,57 @@
           </div>
           <div class="card-body">
             <div>
-              <select class="selectpicker mt-2" data-live-search="true">
-                  <option *ngFor="let city of cities" [value]="city">{{city.name}}</option>
+              <select *ngIf="cities" class="selectpicker mt-2" data-live-search="true" [(ngModel)]="startingCity">
+                <option id="sCityName" *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
               </select>
             </div>
             <div>
-              <select class="selectpicker mt-2" data-live-search="true">
-                  <option *ngFor="let city of cities" [value]="city">{{city.name}}</option>
+              <select *ngIf="cities" class="selectpicker mt-2" data-live-search="true" [(ngModel)]="destinationCity">
+                  <option id="dCityName" *ngFor="let city of cities" [ngValue]="city">{{city.name}} </option>
               </select>
             </div>
             <div><h5>Travel after</h5></div>
             <div class="form-group mt-2">
-                  <input type="date" max="3000-12-31" min="1000-01-01" class="form-control" id="dateSetter">
+                  <input type="date" max="3000-12-31" min="1000-01-01" class="form-control" id="dateSetter"/>
             </div>
             <div class="form-group mt-2">
                 <input type="time" id="timeSetter"/>
             </div>
-            <a href="#" class="btn btn-primary mt-2">Proceed</a>
+            <a href="#" class="btn btn-primary mt-2" id="proceedBtn" data-toggle="modal" data-target="#tracksModal">Proceed</a>
           </div>
   </div>
+
+<!-- Modal -->
+<div class="modal fade" id="tracksModal" tabindex="-1" role="dialog" aria-labelledby="tracksModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Available tracks</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid py-2">
+          <h2 class="font-weight-light"></h2>
+          <div class="d-flex flex-row flex-nowrap">
+              <label *ngFor="let track of tracks">
+                    <input type="radio" name="demo" class="card-input-element d-none" id="demo1">
+                    <option class="card card-body">
+                      <div>Travel date: {{track.date | date : "dd-MM-yyyy HH:mm"}}</div>
+                      <div>From {{startingCity.name}}</div>
+                      <div>To: {{destinationCity.name}}</div>
+                      <div>Distance: {{track.distance}}</div>
+                    </option>
+              </label>
+          </div>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Checkout</button>
+      </div>
+    </div>
+  </div>
+</div>
 
