@@ -11,6 +11,8 @@ export class TrackComponent implements OnInit {
   tracks: any;
   startingCity: any;
   destinationCity: any;
+  selectedTrack: any;
+  msg: any;
 
   constructor(private http: HttpClient) { }
 
@@ -37,19 +39,35 @@ export class TrackComponent implements OnInit {
   }
 
   getTracks() {
-    const dateParams = (document.getElementById('dateSetter') as HTMLInputElement).value;
-    const timeParams = (document.getElementById('timeSetter') as HTMLInputElement).value;
-    const dateTimeParams = dateParams + ' ' + timeParams;
-    const trackParams = new HttpParams().set('StartingCityId', this.startingCity.id).set('DestinationCityId', this.destinationCity.id)
+    if (this.startingCity === undefined || this.destinationCity === undefined) {
+      this.msg = 'Both starting and destination cities must be provided';
+    } else {
+      this.msg = '';
+      const dateParams = (document.getElementById('dateSetter') as HTMLInputElement).value;
+      const timeParams = (document.getElementById('timeSetter') as HTMLInputElement).value;
+      const dateTimeParams = dateParams + ' ' + timeParams;
+      const trackParams = new HttpParams().set('StartingCityId', this.startingCity.id).set('DestinationCityId', this.destinationCity.id)
                                       .set('Date', dateTimeParams);
-    this.http.get('http://localhost:5000/tracks/', {params: trackParams}).subscribe(response => {
-      this.tracks = response;
+      this.http.get('http://localhost:5000/tracks/', {params: trackParams}).subscribe(response => {
+        this.tracks = response;
+        document.getElementById('checkoutBtn').addEventListener('click', this.proceedToCheckout.bind(this), true);
     }, error => {
-      console.log(error);
+        console.log(error);
     });
+  }
 
   }
 
+  onSelectTrack(track) {
+    this.selectedTrack = track;
+  }
 
+  proceedToCheckout() {
+    if (this.selectedTrack === undefined) {
+      this.msg = 'No track has been selected';
+    } else {
+      this.msg = '';
+    }
+  }
 
 }
