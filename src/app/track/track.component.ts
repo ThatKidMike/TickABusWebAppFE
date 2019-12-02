@@ -13,7 +13,8 @@ export class TrackComponent implements OnInit {
   startingCity: any;
   destinationCity: any;
   selectedTrack: any;
-  msg: any;
+  dateParams: any;
+  timeParams: any;
 
   constructor(private http: HttpClient, private alertify: AlertifyService) { }
 
@@ -40,12 +41,14 @@ export class TrackComponent implements OnInit {
   }
 
   getTracks() {
+    this.dateParams = (document.getElementById('dateSetter') as HTMLInputElement).value;
+    this.timeParams = (document.getElementById('timeSetter') as HTMLInputElement).value;
     if (this.startingCity === undefined || this.destinationCity === undefined) {
       this.alertify.error('Both starting and destination cities must be provided');
+    } else if (!this.timeParams || !this.dateParams) {
+      this.alertify.error('Both time and date has to be set');
     } else {
-      const dateParams = (document.getElementById('dateSetter') as HTMLInputElement).value;
-      const timeParams = (document.getElementById('timeSetter') as HTMLInputElement).value;
-      const dateTimeParams = dateParams + ' ' + timeParams;
+      const dateTimeParams = this.dateParams + ' ' + this.timeParams;
       const trackParams = new HttpParams().set('StartingCityId', this.startingCity.id).set('DestinationCityId', this.destinationCity.id)
                                       .set('Date', dateTimeParams);
       this.http.get('http://localhost:5000/tracks/', {params: trackParams}).subscribe(response => {
