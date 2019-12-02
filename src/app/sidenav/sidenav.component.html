@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #76add4;">
+<nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: grey;">
 
   <a class="navbar-brand" href="#" style="font-style: oblique; font-weight: bold;">TickABus</a>
 
@@ -30,8 +30,8 @@
     </ul>
 
     <div *ngIf="loggedIn()" class="dropdown">
-  <a class="dropdown-toggle text-dark">
-    Welcome 
+  <a class="dropdown-toggle text-bright">
+    Welcome {{authService.decodedToken.unique_name}}
   </a>
 
   <div class="dropdown-menu">

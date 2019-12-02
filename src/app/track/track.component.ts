@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-track',
@@ -14,7 +15,7 @@ export class TrackComponent implements OnInit {
   selectedTrack: any;
   msg: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.getCities();
@@ -40,9 +41,8 @@ export class TrackComponent implements OnInit {
 
   getTracks() {
     if (this.startingCity === undefined || this.destinationCity === undefined) {
-      this.msg = 'Both starting and destination cities must be provided';
+      this.alertify.error('Both starting and destination cities must be provided');
     } else {
-      this.msg = '';
       const dateParams = (document.getElementById('dateSetter') as HTMLInputElement).value;
       const timeParams = (document.getElementById('timeSetter') as HTMLInputElement).value;
       const dateTimeParams = dateParams + ' ' + timeParams;
@@ -50,6 +50,9 @@ export class TrackComponent implements OnInit {
                                       .set('Date', dateTimeParams);
       this.http.get('http://localhost:5000/tracks/', {params: trackParams}).subscribe(response => {
         this.tracks = response;
+        if (this.tracks.length === 0) {
+            this.alertify.error('No tracks were found for submitted parameters');
+        }
         document.getElementById('checkoutBtn').addEventListener('click', this.proceedToCheckout.bind(this), true);
     }, error => {
         console.log(error);
@@ -64,9 +67,8 @@ export class TrackComponent implements OnInit {
 
   proceedToCheckout() {
     if (this.selectedTrack === undefined) {
-      this.msg = 'No track has been selected';
+      this.alertify.error('No track has been selected');
     } else {
-      this.msg = '';
     }
   }
 
