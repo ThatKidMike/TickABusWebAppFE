@@ -1,0 +1,12 @@
+<div class="card mt-5" style="width: 18rem;">
+    <div class="card-header">
+      <div *ngIf="!paidFor">
+          <h1>Buy this ticket - ${{ product.price }}</h1>
+          <p> {{ product.description }} </p>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div #paypal></div>
+    </div>
+</div>

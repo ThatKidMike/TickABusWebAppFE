@@ -3,8 +3,8 @@
 }
 
 .card-body{
-    min-height: 300px;
-    min-width: 300px;
+    min-height: 250px;
+    min-width: 250px;
 }
 
 .card-input-element+.card {

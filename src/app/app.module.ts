@@ -7,18 +7,27 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { RouterModule } from '@angular/router';
+import { AuthGuard } from './_routerGuards/auth.guard';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { TrackComponent } from './track/track.component';
+import { TicketsComponent } from './tickets/tickets.component';
+import { PaymentComponent } from './payment/payment.component';
+import { appRoutes } from './routes';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
    declarations: [
       AppComponent,
       SidenavComponent,
-      TrackComponent
+      TrackComponent,
+      TicketsComponent,
+      PaymentComponent,
+      HomeComponent
    ],
    imports: [
       BrowserModule,
@@ -26,12 +35,14 @@ import { TrackComponent } from './track/track.component';
       HttpClientModule,
       FormsModule,
       BrowserAnimationsModule,
-      BsDropdownModule.forRoot()
+      BsDropdownModule.forRoot(),
+      RouterModule.forRoot(appRoutes)
    ],
    providers: [
       AuthService,
       ErrorInterceptorProvider,
-      AlertifyService
+      AlertifyService,
+      AuthGuard
    ],
    bootstrap: [
       AppComponent

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AlertifyService } from '../_services/alertify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-track',
@@ -16,7 +17,7 @@ export class TrackComponent implements OnInit {
   dateParams: any;
   timeParams: any;
 
-  constructor(private http: HttpClient, private alertify: AlertifyService) { }
+  constructor(private http: HttpClient, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
     this.getCities();
@@ -72,6 +73,7 @@ export class TrackComponent implements OnInit {
     if (this.selectedTrack === undefined) {
       this.alertify.error('No track has been selected');
     } else {
+      this.router.navigate(['/payment']);
     }
   }
 
