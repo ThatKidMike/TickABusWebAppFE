@@ -1,8 +1,10 @@
 <div class="card mt-5" style="width: 18rem;">
     <div class="card-header">
       <div *ngIf="!paidFor">
-          <h1>Buy this ticket - ${{ product.price }}</h1>
-          <p> {{ product.description }} </p>
+          <p>Buy this ticket - ${{ trackObj.price }}</p>
+          <p>From: {{ trackObj.startingCity.name }}</p>
+          <p>To: {{ trackObj.destinationCity.name }}</p>
+          <p>Travel date: {{trackObj.date | date : "dd-MM-yyyy HH:mm"}}</p>
       </div>
     </div>
 

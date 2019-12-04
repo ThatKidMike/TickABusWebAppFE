@@ -1,3 +1,4 @@
+import { TrackDataService } from './../_services/trackData.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AlertifyService } from '../_services/alertify.service';
@@ -17,11 +18,22 @@ export class TrackComponent implements OnInit {
   dateParams: any;
   timeParams: any;
 
-  constructor(private http: HttpClient, private alertify: AlertifyService, private router: Router) { }
+  constructor(private http: HttpClient, private alertify: AlertifyService, private router: Router, 
+              private trackDataService: TrackDataService) { }
 
   ngOnInit() {
     this.getCities();
     this.setCurrentDate();
+  }
+
+  sendTrackData(): void {
+    const obj = {
+      startingCity: this.startingCity,
+      destinationCity: this.destinationCity,
+      price: this.selectedTrack.distance * 2,
+      date: this.selectedTrack.date
+    };
+    this.trackDataService.sendTrackData(obj);
   }
 
   getCities() {
@@ -73,6 +85,7 @@ export class TrackComponent implements OnInit {
     if (this.selectedTrack === undefined) {
       this.alertify.error('No track has been selected');
     } else {
+      this.sendTrackData();
       this.router.navigate(['/payment']);
     }
   }
