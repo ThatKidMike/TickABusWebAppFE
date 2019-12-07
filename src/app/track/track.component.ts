@@ -18,7 +18,9 @@ export class TrackComponent implements OnInit {
   dateParams: any;
   timeParams: any;
 
-  constructor(private http: HttpClient, private alertify: AlertifyService, private router: Router, 
+  areListenersSet = false;
+
+  constructor(private http: HttpClient, private alertify: AlertifyService, private router: Router,
               private trackDataService: TrackDataService) { }
 
   ngOnInit() {
@@ -31,7 +33,8 @@ export class TrackComponent implements OnInit {
       startingCity: this.startingCity,
       destinationCity: this.destinationCity,
       price: this.selectedTrack.distance * 2,
-      date: this.selectedTrack.date
+      date: this.selectedTrack.date,
+      trackId: this.selectedTrack.id
     };
     this.trackDataService.sendTrackData(obj);
   }
@@ -69,7 +72,11 @@ export class TrackComponent implements OnInit {
         if (this.tracks.length === 0) {
             this.alertify.error('No tracks were found for submitted parameters');
         }
-        document.getElementById('checkoutBtn').addEventListener('click', this.proceedToCheckout.bind(this), true);
+        if (!this.areListenersSet) {
+          document.getElementById('checkoutBtn').addEventListener('click', this.proceedToCheckout.bind(this), true);
+          document.getElementById('closeBtn').addEventListener('click', this.dismissTracks.bind(this), true);
+          this.areListenersSet = true;
+        }
     }, error => {
         console.log(error);
     });
@@ -79,6 +86,10 @@ export class TrackComponent implements OnInit {
 
   onSelectTrack(track) {
     this.selectedTrack = track;
+  }
+
+  dismissTracks() {
+    this.selectedTrack = undefined;
   }
 
   proceedToCheckout() {

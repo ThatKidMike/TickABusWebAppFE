@@ -19,7 +19,12 @@ import { TicketsComponent } from './tickets/tickets.component';
 import { PaymentComponent } from './payment/payment.component';
 import { appRoutes } from './routes';
 import { HomeComponent } from './home/home.component';
+import { PaymentCompletedComponent } from './payment-completed/payment-completed.component';
+import { JwtModule } from '@auth0/angular-jwt';
 
+export function tokenGetter() {
+   return localStorage.getItem('token');
+}
 
 @NgModule({
    declarations: [
@@ -28,7 +33,8 @@ import { HomeComponent } from './home/home.component';
       TrackComponent,
       TicketsComponent,
       PaymentComponent,
-      HomeComponent
+      HomeComponent,
+      PaymentCompletedComponent
    ],
    imports: [
       BrowserModule,
@@ -37,7 +43,14 @@ import { HomeComponent } from './home/home.component';
       FormsModule,
       BrowserAnimationsModule,
       BsDropdownModule.forRoot(),
-      RouterModule.forRoot(appRoutes)
+      RouterModule.forRoot(appRoutes),
+      JwtModule.forRoot({
+         config: {
+            tokenGetter,
+            whitelistedDomains: ['localhost:5000'],
+            blacklistedRoutes: ['localhost:5000/auth/']
+         }
+      }),
    ],
    providers: [
       AuthService,

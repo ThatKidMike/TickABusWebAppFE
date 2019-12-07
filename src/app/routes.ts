@@ -1,3 +1,4 @@
+import { PaymentCompletedComponent } from './payment-completed/payment-completed.component';
 import { HomeComponent } from './home/home.component';
 import { TrackComponent } from './track/track.component';
 import { Routes, CanActivate } from '@angular/router';
@@ -10,5 +11,6 @@ export const appRoutes: Routes = [
     { path: 'tracks', component: TrackComponent, canActivate: [AuthGuard]},
     { path: 'tickets', component: TicketsComponent, canActivate: [AuthGuard] },
     { path: 'payment', component: PaymentComponent, canActivate: [AuthGuard] },
+    { path: 'payment-completed', component: PaymentCompletedComponent, canActivate: [AuthGuard] },
     { path: '**', redirectTo: 'tracks', pathMatch: 'full'}
 ];
