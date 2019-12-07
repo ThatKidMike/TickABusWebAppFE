@@ -1,107 +1,33 @@
 <section class="container">
   <h1>Your tickets</h1>
-    <div class="row">
-      <article class="card fl-left">
-        <section class="date">
-          <time datetime="23th feb">
-            <span>23</span><span>feb</span>
-          </time>
-        </section>
-        <section class="card-cont">
-          <small>dj khaled</small>
-          <h3>live in sydney</h3>
-          <div class="even-date">
-           <i class="fa fa-calendar"></i>
-           <time>
-             <span>wednesday 28 december 2014</span>
-             <span>08:55pm to 12:00 am</span>
-           </time>
-          </div>
-          <div class="even-info">
-            <i class="fa fa-map-marker"></i>
-            <p>
-              nexen square for people australia, sydney
-            </p>
-          </div>
-          <a href="#">tickets</a>
-        </section>
-      </article>
-      <article class="card fl-left">
-        <section class="date">
-          <time datetime="23th feb">
-            <span>23</span><span>feb</span>
-          </time>
-        </section>
-        <section class="card-cont">
-          <small>dj khaled</small>
-          <h3>corner obsest program</h3>
-          <div class="even-date">
-           <i class="fa fa-calendar"></i>
-           <time>
-             <span>wednesday 28 december 2014</span>
-             <span>08:55pm to 12:00 am</span>
-           </time>
-          </div>
-          <div class="even-info">
-            <i class="fa fa-map-marker"></i>
-            <p>
-              nexen square for people australia, sydney
-            </p>
-          </div>
-          <a href="#">tickets</a>
-        </section>
-      </article>
+  <h2>Filter your tickets: </h2>
+  <input [(ngModel)]="startingCitySearch" placeholder="Starting City">
+  <input [(ngModel)]="destinationCitySearch" placeholder="Destination City">
+  <input [(ngModel)]="dateSearch" type="date" max="3000-12-31" min="1000-01-01">
+ 
+    <div class="panel-body">
+      <ul class="list-group">
+        <li *ngFor="let ticket of userTickets | ticketsFilter: startingCitySearch:destinationCitySearch:dateSearch" class="list-group-item">
+            <article class="card fl-left">
+                <section class="qrcode">
+                    <ngx-qrcode [qrc-element-type]="'img'" [qrc-value]=[ticket.id] [qrc-class]="qrc-class"></ngx-qrcode>
+                </section>
+                  <section class="card-cont">
+                    <i class="fa fa-map-marker"></i>
+                    <h3>From: {{ticket.startingCity}}</h3>
+                    <h3>To: {{ticket.destinationCity}}</h3>
+                    <div class="even-date">
+                     <time>
+                     <i class="fa fa-calendar"></i>
+                     <span>{{ticket.date | date : "dd-MM-yyyy"}}</span>
+                     <span>{{ticket.date | date : "HH:mm"}}</span>
+                     </time>
+                    </div>
+                    <button>Save</button>
+                  </section>
+            </article>
+        </li>
+      </ul>
     </div>
-    <div class="row">
-      <article class="card fl-left">
-        <section class="date">
-          <time datetime="23th feb">
-            <span>23</span><span>feb</span>
-          </time>
-        </section>
-        <section class="card-cont">
-          <small>dj khaled</small>
-          <h3>music kaboom festivel</h3>
-          <div class="even-date">
-           <i class="fa fa-calendar"></i>
-           <time>
-             <span>wednesday 28 december 2014</span>
-             <span>08:55pm to 12:00 am</span>
-           </time>
-          </div>
-          <div class="even-info">
-            <i class="fa fa-map-marker"></i>
-            <p>
-              nexen square for people australia, sydney
-            </p>
-          </div>
-          <a href="#">booked</a>
-        </section>
-      </article>
-      <article class="card fl-left">
-        <section class="date">
-          <time datetime="23th feb">
-            <span>23</span><span>feb</span>
-          </time>
-        </section>
-        <section class="card-cont">
-          <small>dj khaled</small>
-          <h3>hello dubai festivel</h3>
-          <div class="even-date">
-           <i class="fa fa-calendar"></i>
-           <time>
-             <span>wednesday 28 december 2014</span>
-             <span>08:55pm to 12:00 am</span>
-           </time>
-          </div>
-          <div class="even-info">
-            <i class="fa fa-map-marker"></i>
-            <p>
-              nexen square for people australia, sydney
-            </p>
-          </div>
-          <a href="#">cancel</a>
-        </section>
-      </article>
-    </div>
-  
+
+  </section>

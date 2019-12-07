@@ -48,9 +48,11 @@ export class PaymentComponent implements OnInit {
                       currency_code: 'USD',
                       value: this.trackObj.price
                     }
-                  }
-                ]
-
+                  },
+                ],
+                application_context: {
+                  shipping_preference: 'NO_SHIPPING'
+                }
               });
             },
             onApprove: async (data, actions) => {

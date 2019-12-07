@@ -1,3 +1,4 @@
+import { TicketsFilterPipe } from './_services/ticketsFilter.pipe';
 import { AlertifyService } from './_services/alertify.service';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AuthService } from './_services/auth.service';
@@ -21,6 +22,7 @@ import { appRoutes } from './routes';
 import { HomeComponent } from './home/home.component';
 import { PaymentCompletedComponent } from './payment-completed/payment-completed.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -34,7 +36,8 @@ export function tokenGetter() {
       TicketsComponent,
       PaymentComponent,
       HomeComponent,
-      PaymentCompletedComponent
+      PaymentCompletedComponent,
+      TicketsFilterPipe
    ],
    imports: [
       BrowserModule,
@@ -51,13 +54,14 @@ export function tokenGetter() {
             blacklistedRoutes: ['localhost:5000/auth/']
          }
       }),
+      NgxQRCodeModule,
    ],
    providers: [
       AuthService,
       ErrorInterceptorProvider,
       AlertifyService,
       AuthGuard,
-      TrackDataService
+      TrackDataService,
    ],
    bootstrap: [
       AppComponent

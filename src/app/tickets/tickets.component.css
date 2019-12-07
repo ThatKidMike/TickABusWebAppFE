@@ -7,6 +7,18 @@
   box-sizing: border-box
 }
 
+.container input {
+  margin: 5px;
+}
+
+.container button {
+  width: 80px;
+  height: 30px;
+  background-color: blue;
+  color: #fff;
+  text-align: center;
+}
+
 body
 {
   background-color: #dadde6;
@@ -27,9 +39,18 @@ h1
 {
   text-transform: uppercase;
   font-weight: 900;
-  border-left: 10px solid #fec500;
+  border-left: 10px;
+  border-bottom: 2px solid #fec500;
   padding-left: 10px;
   margin-bottom: 30px
+}
+
+h2
+{
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: medium;
+  padding-left: 5px;
 }
 
 .row{overflow: hidden}
@@ -37,10 +58,13 @@ h1
 .card
 {
   display: table-row;
-  width: 49%;
+  width: 99%;
   background-color: #fff;
   color: #989898;
   margin-bottom: 10px;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
   font-family: 'Oswald', sans-serif;
   text-transform: uppercase;
   border-radius: 4px;
@@ -49,14 +73,28 @@ h1
 
 .card + .card{margin-left: 2%}
 
-.date
+.qrcode
 {
   display: table-cell;
-  width: 25%;
+  width: 45%;
   position: relative;
   text-align: center;
   border-right: 2px dashed #dadde6
 }
+
+.qrc-class > img {
+  width: 10px;
+}
+
+.list-group{
+  max-height: 600px;
+  margin-bottom: 10px;
+  width: 60%;
+  overflow:scroll;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+}
+
 
 .date:before,
 
@@ -99,7 +137,7 @@ h1
   display: table-cell;
   width: 75%;
   font-size: 85%;
-  padding: 10px 10px 30px 50px
+  padding: 10px 10px 30px 50px;
 }
 
 .card-cont h3
@@ -142,13 +180,13 @@ h1
   display: block
 }
 
-.card-cont a
+.card-cont button
 {
   display: block;
   text-decoration: none;
   width: 80px;
   height: 30px;
-  background-color: rgb(216, 218, 224);
+  background-color: #fec500;
   color: #fff;
   text-align: center;
   line-height: 30px;
@@ -158,15 +196,6 @@ h1
   bottom: 10px
 }
 
-.row:last-child .card:first-child .card-cont a
-{
-  background-color: #037FDD
-}
-
-.row:last-child .card:last-child .card-cont a
-{
-  background-color: #F8504C
-}
 
 @media screen and (max-width: 860px)
 {
