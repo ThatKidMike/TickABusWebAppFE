@@ -14,7 +14,7 @@
 .container button {
   width: 80px;
   height: 30px;
-  background-color: blue;
+  background-color: #fec500;
   color: #fff;
   text-align: center;
 }
@@ -33,6 +33,12 @@ body
 {
   width: 90%;
   margin: 100px auto
+}
+
+.ticketRadio 
+{
+  display: block;
+  width: 100%
 }
 
 h1
@@ -214,5 +220,16 @@ h2
   {
     font-size: 75%
   }
+}
+
+.card-input-element+.card:hover {
+  cursor: pointer;
+}
+
+.card-input-element:checked+.card {
+  border: 2px solid var(--primary);
+  -webkit-transition: border .0.5s;
+  -o-transition: border .0.5s;
+  transition: border .0.5s;
 }
                                     

@@ -1,16 +1,19 @@
 <section class="container">
   <h1>Your tickets</h1>
   <h2>Filter your tickets: </h2>
-  <input [(ngModel)]="startingCitySearch" placeholder="Starting City">
-  <input [(ngModel)]="destinationCitySearch" placeholder="Destination City">
-  <input [(ngModel)]="dateSearch" type="date" max="3000-12-31" min="1000-01-01">
+  <input [(ngModel)]="startingCitySearch" placeholder="Starting City" (change)="deselectTicket()">
+  <input [(ngModel)]="destinationCitySearch" placeholder="Destination City" (change)="deselectTicket()">
+  <input [(ngModel)]="dateSearch" type="date" max="3000-12-31" min="1000-01-01" (change)="deselectTicket()">
+  <button id="pdfBtn">to PDF</button>
  
     <div class="panel-body">
       <ul class="list-group">
         <li *ngFor="let ticket of userTickets | ticketsFilter: startingCitySearch:destinationCitySearch:dateSearch" class="list-group-item">
+          <label class="ticketRadio">
+            <input type="radio" name="ticketSelect" class="card-input-element d-none" id="ticketSelect" [value]="ticket.id" (change)="onSelectTicket(ticket)">
             <article class="card fl-left">
                 <section class="qrcode">
-                    <ngx-qrcode [qrc-element-type]="'img'" [qrc-value]=[ticket.id] [qrc-class]="qrc-class"></ngx-qrcode>
+                    <ngx-qrcode [qrc-element-type]="'img'" [qrc-value]=[ticket.id] qrc-class="qr"></ngx-qrcode>
                 </section>
                   <section class="card-cont">
                     <i class="fa fa-map-marker"></i>
@@ -23,9 +26,9 @@
                      <span>{{ticket.date | date : "HH:mm"}}</span>
                      </time>
                     </div>
-                    <button>Save</button>
                   </section>
             </article>
+          </label>
         </li>
       </ul>
     </div>

@@ -54,7 +54,7 @@ export function tokenGetter() {
             blacklistedRoutes: ['localhost:5000/auth/']
          }
       }),
-      NgxQRCodeModule,
+      NgxQRCodeModule
    ],
    providers: [
       AuthService,
