@@ -11,6 +11,7 @@ export class AuthService {
   jwtHelper = new JwtHelperService();
   decodedToken: any;
   user: any;
+  role: any;
 
 constructor(private http: HttpClient) { }
 
@@ -22,7 +23,9 @@ login(model: any) {
         if (this.user) {
           localStorage.setItem('token', this.user.token);
           this.decodedToken = this.jwtHelper.decodeToken(this.user.token);
-          console.log(this.decodedToken);
+          this.role = this.decodedToken.role;
+          //console.log(this.role);
+          //console.log(this.decodedToken);
         }
       })
     );
@@ -41,6 +44,15 @@ register(model: any) {
 loggedIn() {
   const token = localStorage.getItem('token');
   return !this.jwtHelper.isTokenExpired(token);
+}
+
+isAdmin() {
+  this.role = this.decodedToken.role;
+  if (this.role === 'admin') {
+    return true;
+  }
+
+  return false;
 }
 
 }

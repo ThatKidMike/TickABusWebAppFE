@@ -1,0 +1,10 @@
+h1
+{
+  text-transform: uppercase;
+  font-weight: 900;
+  border-left: 10px;
+  border-bottom: 2px solid #fe1100;
+  padding-left: 10px;
+  margin-bottom: 30px;
+  margin-top: 80px;
+}

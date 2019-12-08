@@ -1,3 +1,4 @@
+import { AuthService } from './../_services/auth.service';
 import { TrackDataService } from './../_services/trackData.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -21,7 +22,7 @@ export class TrackComponent implements OnInit {
   areListenersSet = false;
 
   constructor(private http: HttpClient, private alertify: AlertifyService, private router: Router,
-              private trackDataService: TrackDataService) { }
+              private trackDataService: TrackDataService, private authService: AuthService) { }
 
   ngOnInit() {
     this.getCities();

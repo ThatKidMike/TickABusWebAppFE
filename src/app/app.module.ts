@@ -1,3 +1,9 @@
+import { DeleteTrackComponent } from './deleteTrack/deleteTrack.component';
+import { ModifyTrackComponent } from './modifyTrack/modifyTrack.component';
+import { AddTrackComponent } from './addTrack/addTrack.component';
+import { DeleteCityComponent } from './deleteCity/deleteCity.component';
+import { ModifyCityComponent } from './modifyCity/modifyCity.component';
+import { AddCityComponent } from './addCity/addCity.component';
 import { TicketsFilterPipe } from './_services/ticketsFilter.pipe';
 import { AlertifyService } from './_services/alertify.service';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
@@ -37,7 +43,13 @@ export function tokenGetter() {
       PaymentComponent,
       HomeComponent,
       PaymentCompletedComponent,
-      TicketsFilterPipe
+      TicketsFilterPipe,
+      AddCityComponent,
+      ModifyCityComponent,
+      DeleteCityComponent,
+      AddTrackComponent,
+      ModifyTrackComponent,
+      DeleteTrackComponent
    ],
    imports: [
       BrowserModule,
