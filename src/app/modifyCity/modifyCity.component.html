@@ -1,7 +1,12 @@
 <section class="container">
-    <h1>Modify City</h1>
-  
-  
-  
-  
-  </section>
+  <h1>Modify City</h1>
+    <div class="form-group">
+      <select (change)="provideCity()" *ngIf="cities" class="selectpicker mt-2" data-live-search="true" [(ngModel)]="selectedCity" id="CitySelect" name="CitySelect" required>
+          <option id="CityName" *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
+      </select>
+      <input [(ngModel)]="actualCityName" class="form-control" id="cityName" placeholder="Enter City new name">
+      <small id="cityHelp" class="form-text text-muted">Provide City new name</small>
+    </div>
+    <button id="submitBtn" type="submit" class="btn btn-primary">Submit</button>
+</section>
+

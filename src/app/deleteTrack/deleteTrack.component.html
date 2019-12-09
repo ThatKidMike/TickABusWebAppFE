@@ -1,7 +1,27 @@
 <section class="container">
-    <h1>Delete Track</h1>
-  
-  
-  
-  
+    <h1>Modify Track</h1>
+      <div class="form-group">
+        <select [(ngModel)]="selectedTrack" *ngIf="tracks" class="selectpicker mt-2" data-live-search="true" [(ngModel)]="selectedTrack" id="TrackSelect" name="TrackSelect" required>
+            <option id="CityName" *ngFor="let track of tracks" [ngValue]="track">
+              {{track.startingCityId}} -> {{track.destinationCityId}} -> {{track.date}} -> {{track.distance}}</option>
+        </select>
+      </div>
+      <button *ngIf="selectedTrack" type="submit" class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete">DELETE</button>
   </section>
+
+  <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  Are you sure you want to delete:
+              </div>
+              <div *ngIf="selectedTrack" class="modal-body">
+                  {{selectedTrack.startingCityId}} -> {{selectedTrack.destinationCityId}} -> {{selectedTrack.date}} -> {{selectedTrack.distance}}
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  <button class="btn btn-danger btn-ok" id="deleteBtn" data-dismiss="modal">Delete</button>
+              </div>
+          </div>
+      </div>
+  </div>
