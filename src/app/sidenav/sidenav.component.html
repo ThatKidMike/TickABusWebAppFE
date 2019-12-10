@@ -29,24 +29,24 @@
       </div>
     </ul>
 
-    <button *ngIf="authService.isAdmin() && loggedIn()" class="btn-success" [routerLink]="['/addcity']">Add city</button> 
-    <button *ngIf="authService.isAdmin() && loggedIn()" class="btn-success" [routerLink]="['/modifycity']">Modify city</button> 
-    <button *ngIf="authService.isAdmin() && loggedIn()" class="btn-success" [routerLink]="['/deletecity']">Delete city</button>
-    <button *ngIf="authService.isAdmin() && loggedIn()" class="btn-success" [routerLink]="['/addtrack']">Add track</button>
-    <button *ngIf="authService.isAdmin() && loggedIn()" class="btn-success" [routerLink]="['/modifytrack']">Modify track</button>
-    <button *ngIf="authService.isAdmin() && loggedIn()" class="btn-success" [routerLink]="['/deletetrack']">Delete track</button>
+    <button *ngIf="isAdmin() && loggedIn()" class="btn-success" [routerLink]="['/addcity']">Add city</button> 
+    <button *ngIf="isAdmin() && loggedIn()" class="btn-success" [routerLink]="['/modifycity']">Modify city</button> 
+    <button *ngIf="isAdmin() && loggedIn()" class="btn-success" [routerLink]="['/deletecity']">Delete city</button>
+    <button *ngIf="isAdmin() && loggedIn()" class="btn-success" [routerLink]="['/addtrack']">Add track</button>
+    <button *ngIf="isAdmin() && loggedIn()" class="btn-success" [routerLink]="['/modifytrack']">Modify track</button>
+    <button *ngIf="isAdmin() && loggedIn()" class="btn-success" [routerLink]="['/deletetrack']">Delete track</button>
 
     <div class="container" style="display: flex; justify-content: flex-end">
-        <button *ngIf="authService.isAdmin() && loggedIn()" class="btn btn-warning" (click)="logout()">Logout</button>
+        <button *ngIf="isAdmin() && loggedIn()" class="btn btn-warning" (click)="logout()">Logout</button>
     </div>
 
-    <div *ngIf="loggedIn() && !authService.isAdmin()" class="dropdown ml-auto" dropdown>
+    <div *ngIf="loggedIn() && !isAdmin()" class="dropdown ml-auto" dropdown>
   <a class="dropdown-toggle" dropdownToggle>
     Welcome {{authService.decodedToken.unique_name}}
   </a>
 
   <div class="dropdown-menu mt-3" *dropdownMenu>
-      <a *ngIf="!authService.isAdmin()" class="dropdown-item" [routerLink]="['/tickets']" href="#">
+      <a *ngIf="!isAdmin()" class="dropdown-item" [routerLink]="['/tickets']" href="#">
           <i class="fa fa-ticket"></i>Check your tickets
       </a>
     <div class="dropdown-divider"></div>

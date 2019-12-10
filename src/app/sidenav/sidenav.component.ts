@@ -43,4 +43,8 @@ export class SidenavComponent implements OnInit {
     this.router.navigate(['home']);
   }
 
+  isAdmin() {
+    return this.authService.isAdmin();
+  }
+
 }

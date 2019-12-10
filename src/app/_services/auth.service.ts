@@ -47,11 +47,12 @@ loggedIn() {
 }
 
 isAdmin() {
+  if (this.loggedIn()) {
   this.role = this.decodedToken.role;
   if (this.role === 'admin') {
     return true;
   }
-
+}
   return false;
 }
 
