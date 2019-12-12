@@ -24,8 +24,8 @@ login(model: any) {
           localStorage.setItem('token', this.user.token);
           this.decodedToken = this.jwtHelper.decodeToken(this.user.token);
           this.role = this.decodedToken.role;
-          //console.log(this.role);
-          //console.log(this.decodedToken);
+          // console.log(this.role);
+          // console.log(this.decodedToken);
         }
       })
     );

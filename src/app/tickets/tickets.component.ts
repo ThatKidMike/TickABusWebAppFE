@@ -1,3 +1,4 @@
+import { TicketsService } from './../_services/tickets.service';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { FormsModule } from '@angular/forms';
@@ -25,8 +26,8 @@ export class TicketsComponent implements OnInit {
   selectedTicket: any;
   generatedQr: any;
   
-  constructor(private http: HttpClient, private alertify: AlertifyService, private router: Router,
-              private authService: AuthService) { }
+  constructor(private alertify: AlertifyService, private authService: AuthService,
+              private ticketsService: TicketsService) { }
 
   ngOnInit() {
     this.getUserTickets();
@@ -36,7 +37,7 @@ export class TicketsComponent implements OnInit {
   getUserTickets() {
     const userIdParam = this.authService.decodedToken.nameid;
     const httpParams = new HttpParams().set('UserId', userIdParam);
-    this.http.get('http://localhost:5000/tickets/usertickets', { params: httpParams }).subscribe(response => {
+    this.ticketsService.getUserTickets(httpParams).subscribe(response => {
       this.userTickets = response;
       //console.log(response);
     }, error => {

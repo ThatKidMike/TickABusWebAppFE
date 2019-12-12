@@ -1,13 +1,12 @@
 <section class="container">
   <h1>Your tickets</h1>
   <h2>Filter your tickets: </h2>
-  <input [(ngModel)]="startingCitySearch" placeholder="Starting City" (change)="deselectTicket()">
-  <input [(ngModel)]="destinationCitySearch" placeholder="Destination City" (change)="deselectTicket()">
-  <input [(ngModel)]="dateSearch" type="date" max="3000-12-31" min="1000-01-01" (change)="deselectTicket()">
-  <button id="pdfBtn">to PDF</button>
- 
+  <input class="form-control" [(ngModel)]="startingCitySearch" placeholder="Starting City" (change)="deselectTicket()">
+  <input class="form-control" [(ngModel)]="destinationCitySearch" placeholder="Destination City" (change)="deselectTicket()">
+  <input class="form-control" [(ngModel)]="dateSearch" type="date" max="3000-12-31" min="1000-01-01" (change)="deselectTicket()"> 
+  <button class="bt-fl-left" id="pdfBtn">to PDF</button>
     <div class="panel-body">
-      <ul class="list-group">
+      <a class="list-group">
         <li *ngFor="let ticket of userTickets | ticketsFilter: startingCitySearch:destinationCitySearch:dateSearch" class="list-group-item">
           <label class="ticketRadio">
             <input type="radio" name="ticketSelect" class="card-input-element d-none" id="ticketSelect" [value]="ticket.id" (change)="onSelectTicket(ticket)">
@@ -30,7 +29,6 @@
             </article>
           </label>
         </li>
-      </ul>
+      </a>
     </div>
-
   </section>

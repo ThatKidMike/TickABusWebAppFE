@@ -1,3 +1,4 @@
+import { CitiesService } from './../_services/cities.service';
 import { AlertifyService } from './../_services/alertify.service';
 import { AuthService } from './../_services/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -16,7 +17,8 @@ export class ModifyCityComponent implements OnInit {
   city: any;
   cityDTO: any = {};
 
-  constructor(private authService: AuthService, private http: HttpClient, private alertify: AlertifyService) { }
+  constructor(private authService: AuthService, private http: HttpClient, private alertify: AlertifyService,
+              private citiesService: CitiesService) { }
 
   ngOnInit() {
     this.getCities();
@@ -24,7 +26,7 @@ export class ModifyCityComponent implements OnInit {
   }
 
   getCities() {
-    this.http.get('http://localhost:5000/cities/').subscribe(response => {
+    this.citiesService.getCities().subscribe(response => {
       this.cities = response;
     }, error => {
       console.log(error);
@@ -34,7 +36,7 @@ export class ModifyCityComponent implements OnInit {
   modifyCity() {
     if (this.actualCityName !== null && this.selectedCity !== undefined) {
       this.cityDTO.name = this.actualCityName;
-      this.http.put(`http://localhost:5000/cities/${this.selectedCity.id}`, this.cityDTO).subscribe(response => {
+      this.citiesService.modifyCity(this.selectedCity.id, this.cityDTO).subscribe(response => {
         console.log(response);
         this.alertify.success('City was modified');
         this.getCities();

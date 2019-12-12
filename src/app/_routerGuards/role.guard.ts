@@ -12,14 +12,14 @@ export class RoleGuard implements CanActivate {
               private alertify: AlertifyService) {}
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.AuthService.loggedIn() && this.AuthService.role === 'user') {
+    if (this.AuthService.loggedIn() && this.AuthService.role === 'admin') {
       return true;
     }
 
     if (!this.AuthService.loggedIn()) {
         this.alertify.error('User has to be logged in');
     } else {
-        this.alertify.error('Tickets module for users only');
+        this.alertify.error('Access denied');
     }
 
     this.router.navigate(['home']);

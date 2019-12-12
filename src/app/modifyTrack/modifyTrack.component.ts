@@ -1,3 +1,4 @@
+import { TracksService } from './../_services/tracks.service';
 import { FormsModule } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
@@ -23,7 +24,8 @@ export class ModifyTrackComponent implements OnInit {
   trackDTO: any = {};
 
 
-  constructor(private authService: AuthService, private http: HttpClient, private alertify: AlertifyService) { }
+  constructor(private authService: AuthService, private http: HttpClient, private alertify: AlertifyService,
+              private tracksService: TracksService) { }
 
   ngOnInit() {
     this.getTracks();
@@ -32,7 +34,7 @@ export class ModifyTrackComponent implements OnInit {
   }
 
   getTracks() {
-    this.http.get('http://localhost:5000/tracks/noparams').subscribe(response => {
+    this.tracksService.getTracksNoParams().subscribe(response => {
       this.tracks = response;
       this.getCityNames();
     }, error => {
@@ -41,7 +43,7 @@ export class ModifyTrackComponent implements OnInit {
   }
 
   getCities() {
-    this.http.get('http://localhost:5000/cities/').subscribe(response => {
+    this.tracksService.getCities().subscribe(response => {
       this.cities = response;
     }, error => {
       console.log(error);
@@ -50,14 +52,14 @@ export class ModifyTrackComponent implements OnInit {
 
   getCityNames() {
     this.tracks.forEach(track => {
-     this.http.get(`http://localhost:5000/cities/${track.startingCityId}`).subscribe(response => {
+     this.tracksService.getCityName(track.startingCityId).subscribe(response => {
         this.sCity = response;
         track.startingCityId = this.sCity.name;
       }, error => {
         console.log(error);
       });
 
-     this.http.get(`http://localhost:5000/cities/${track.destinationCityId}`).subscribe(response => {
+     this.tracksService.getCityName(track.destinationCityId).subscribe(response => {
         this.dCity = response;
         track.destinationCityId = this.dCity.name;
       }, error => {
@@ -75,7 +77,7 @@ export class ModifyTrackComponent implements OnInit {
         this.trackDTO.FakeStartingCityId = this.selectedSCity.id;
         this.trackDTO.FakeDestinationCityId = this.selectedDCity.id;
         this.trackDTO.Distance = parseInt(this.distance, 10);
-        this.http.put(`http://localhost:5000/tracks/${this.selectedTrack.id}`, this.trackDTO).subscribe(response => {
+        this.tracksService.modifyTrack(this.selectedTrack.id, this.trackDTO).subscribe(response => {
           console.log(response);
           this.getTracks();
           this.alertify.success('Track was modified');

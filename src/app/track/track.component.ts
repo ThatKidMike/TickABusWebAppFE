@@ -1,3 +1,4 @@
+import { TracksService } from './../_services/tracks.service';
 import { AuthService } from './../_services/auth.service';
 import { TrackDataService } from './../_services/trackData.service';
 import { Component, OnInit } from '@angular/core';
@@ -21,8 +22,8 @@ export class TrackComponent implements OnInit {
 
   areListenersSet = false;
 
-  constructor(private http: HttpClient, private alertify: AlertifyService, private router: Router,
-              private trackDataService: TrackDataService, private authService: AuthService) { }
+  constructor(private alertify: AlertifyService, private router: Router,
+              private trackDataService: TrackDataService, private authService: AuthService, private tracksService: TracksService) { }
 
   ngOnInit() {
     this.getCities();
@@ -41,7 +42,7 @@ export class TrackComponent implements OnInit {
   }
 
   getCities() {
-    this.http.get('http://localhost:5000/cities/').subscribe(response => {
+    this.tracksService.getCities().subscribe(response => {
       this.cities = response;
       document.getElementById('proceedBtn').addEventListener('click', this.getTracks.bind(this), true);
     }, error => {
@@ -68,7 +69,7 @@ export class TrackComponent implements OnInit {
       const dateTimeParams = this.dateParams + ' ' + this.timeParams;
       const trackParams = new HttpParams().set('StartingCityId', this.startingCity.id).set('DestinationCityId', this.destinationCity.id)
                                       .set('Date', dateTimeParams);
-      this.http.get('http://localhost:5000/tracks/', {params: trackParams}).subscribe(response => {
+      this.tracksService.getTracks(trackParams).subscribe(response => {
         this.tracks = response;
         if (this.tracks.length === 0) {
             this.alertify.error('No tracks were found for submitted parameters');

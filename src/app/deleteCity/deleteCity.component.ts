@@ -1,3 +1,4 @@
+import { CitiesService } from './../_services/cities.service';
 import { AlertifyService } from './../_services/alertify.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
@@ -12,7 +13,8 @@ export class DeleteCityComponent implements OnInit {
   selectedCity: any;
   cities: any;
 
-  constructor(private authService: AuthService, private http: HttpClient, private alertify: AlertifyService) { }
+  constructor(private authService: AuthService, private http: HttpClient, private alertify: AlertifyService,
+              private citiesService: CitiesService) { }
 
   ngOnInit() {
     this.getCities();
@@ -20,7 +22,7 @@ export class DeleteCityComponent implements OnInit {
   }
 
   getCities() {
-    this.http.get('http://localhost:5000/cities/').subscribe(response => {
+    this.citiesService.getCities().subscribe(response => {
       this.cities = response;
     }, error => {
       console.log(error);
@@ -28,7 +30,7 @@ export class DeleteCityComponent implements OnInit {
   }
 
   deleteCity() {
-    this.http.delete(`http://localhost:5000/cities/${this.selectedCity.id}`).subscribe(response => {
+    this.citiesService.deleteCity(this.selectedCity.id).subscribe(response => {
       console.log(response);
       this.getCities();
       this.alertify.success('City deleted');

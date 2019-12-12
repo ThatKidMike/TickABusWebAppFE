@@ -1,3 +1,4 @@
+import { TracksService } from './../_services/tracks.service';
 import { FormsModule } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
@@ -15,7 +16,8 @@ export class DeleteTrackComponent implements OnInit {
   sCity: any;
   dCity: any;
 
-  constructor(private authService: AuthService, private http: HttpClient, private alertify: AlertifyService) { }
+  constructor(private authService: AuthService, private http: HttpClient, private alertify: AlertifyService,
+              private tracksService: TracksService) { }
 
   ngOnInit() {
     this.getTracks();
@@ -23,7 +25,7 @@ export class DeleteTrackComponent implements OnInit {
   }
 
   getTracks() {
-    this.http.get('http://localhost:5000/tracks/noparams').subscribe(response => {
+    this.tracksService.getTracksNoParams().subscribe(response => {
       this.tracks = response;
       this.getCityNames();
     }, error => {
@@ -33,14 +35,14 @@ export class DeleteTrackComponent implements OnInit {
 
   getCityNames() {
     this.tracks.forEach(track => {
-     this.http.get(`http://localhost:5000/cities/${track.startingCityId}`).subscribe(response => {
+     this.tracksService.getCityName(track.startingCityId).subscribe(response => {
         this.sCity = response;
         track.startingCityId = this.sCity.name;
       }, error => {
         console.log(error);
       });
 
-     this.http.get(`http://localhost:5000/cities/${track.destinationCityId}`).subscribe(response => {
+     this.tracksService.getCityName(track.destinationCityId).subscribe(response => {
         this.dCity = response;
         track.destinationCityId = this.dCity.name;
       }, error => {
@@ -50,7 +52,7 @@ export class DeleteTrackComponent implements OnInit {
   }
 
   deleteTrack() {
-    this.http.delete(`http://localhost:5000/tracks/${this.selectedTrack.id}`).subscribe(response => {
+    this.tracksService.deleteTrack(this.selectedTrack.id).subscribe(response => {
       //console.log(response);
       this.getTracks();
       this.alertify.success('Track deleted');

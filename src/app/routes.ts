@@ -16,14 +16,14 @@ import { AddTrackComponent } from './addTrack/addTrack.component';
 export const appRoutes: Routes = [
     { path: 'home', component: HomeComponent},
     { path: 'tracks', component: TrackComponent, canActivate: [AuthGuard]},
-    { path: 'tickets', component: TicketsComponent, canActivate: [RoleGuard] },
+    { path: 'tickets', component: TicketsComponent, canActivate: [AuthGuard] },
     { path: 'payment', component: PaymentComponent, canActivate: [AuthGuard] },
     { path: 'payment-completed', component: PaymentCompletedComponent, canActivate: [AuthGuard] },
-    { path: 'addcity', component: AddCityComponent},
-    { path: 'modifycity', component: ModifyCityComponent},
-    { path: 'deletecity', component: DeleteCityComponent},
-    { path: 'addtrack', component: AddTrackComponent},
-    { path: 'modifytrack', component: ModifyTrackComponent},
-    { path: 'deletetrack', component: DeleteTrackComponent},
+    { path: 'addcity', component: AddCityComponent, canActivate: [RoleGuard]},
+    { path: 'modifycity', component: ModifyCityComponent, canActivate: [RoleGuard]},
+    { path: 'deletecity', component: DeleteCityComponent, canActivate: [RoleGuard]},
+    { path: 'addtrack', component: AddTrackComponent, canActivate: [RoleGuard]},
+    { path: 'modifytrack', component: ModifyTrackComponent, canActivate: [RoleGuard]},
+    { path: 'deletetrack', component: DeleteTrackComponent, canActivate: [RoleGuard]},
     { path: '**', redirectTo: 'tracks', pathMatch: 'full'}
 ];

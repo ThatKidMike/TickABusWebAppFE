@@ -2,25 +2,26 @@
     <h1>Add Track</h1>
     <div class="form-group">
               <h5>From:</h5>
-                  <select *ngIf="cities" class="selectpicker mt-2" data-live-search="true" [(ngModel)]="startingCity" id="sCitySelect" name="sCitySelect" required>
+                  <select *ngIf="cities" class="form-control" data-live-search="true" [(ngModel)]="startingCity" id="sCitySelect" name="sCitySelect" required>
                     <option id="sCityName" *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
                   </select>
                 <div>
               <h5>To:</h5>
-                  <select *ngIf="cities" class="selectpicker mt-2" data-live-search="true" [(ngModel)]="destinationCity" id="dCitySelect" name="dCitySelect" required>
+                  <select *ngIf="cities" class="form-control" data-live-search="true" [(ngModel)]="destinationCity" id="dCitySelect" name="dCitySelect" required>
                       <option id="dCityName" *ngFor="let city of cities" [ngValue]="city">{{city.name}} </option>
                   </select>
                 </div>
-                <div><h5>Travel after</h5></div>
-                <div class="form-group mt-2">
+                <div><h5>Travel date:</h5></div>
+                <div class="form-group">
                       <input [(ngModel)]="date" type="date" max="3000-12-31" min="1000-01-01" class="form-control" id="dateSetter"/>
                 </div>
-                <div class="form-group mt-2">
-                    <input [(ngModel)]="hour" type="time" id="timeSetter"/>
+                <div class="form-group">
+                    <input class="form-control" [(ngModel)]="hour" type="time" id="timeSetter"/>
                 </div>
-                <div class="form-group mt-2">
-                    <input [(ngModel)]="distance" (keypress)="numberOnly($event)" type="text">
+                <div><h5>Distance:</h5></div>
+                <div class="form-group">
+                    <input class="form-control"  [(ngModel)]="distance" (keypress)="numberOnly($event)" type="text">
                 </div>
-                <a href="#" class="btn btn-primary mt-2" id="proceedBtn" data-toggle="modal" data-target="#tracksModal">Proceed</a>
+                <a href="#" class="btn btn-primary" id="proceedBtn" data-toggle="modal" data-target="#tracksModal">Proceed</a>
               </div>
     </section>

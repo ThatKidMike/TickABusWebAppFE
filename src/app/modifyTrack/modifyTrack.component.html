@@ -1,30 +1,29 @@
 <section class="container">
     <h1>Modify Track</h1>
       <div class="form-group">
-        <select [(ngModel)]="selectedTrack" *ngIf="tracks" class="selectpicker mt-2" data-live-search="true" [(ngModel)]="selectedTrack" id="TrackSelect" name="TrackSelect" required>
+            <span class="form-label">Select track to modify</span>
+        <select [(ngModel)]="selectedTrack" *ngIf="tracks" class="form-control mt-2" data-live-search="true" [(ngModel)]="selectedTrack" id="TrackSelect" name="TrackSelect" required>
             <option id="CityName" *ngFor="let track of tracks" [ngValue]="track">
               {{track.startingCityId}} -> {{track.destinationCityId}} -> {{track.date}} -> {{track.distance}}</option>
         </select>
-        <small id="trackHelp" class="form-text text-muted">Select track to modify</small>
         <div>
-        <select [(ngModel)]="selectedSCity" *ngIf="cities" class="selectpicker mt-2" data-live-search="true" id="CityStartSelect" name="CityStartSelect" required>
+            <span class="form-label">Select new starting City</span>
+        <select [(ngModel)]="selectedSCity" *ngIf="cities" class="form-control mt-2" data-live-search="true" id="CityStartSelect" name="CityStartSelect" required>
             <option id="CityName" *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
         </select>
-        <small id="citySHelp" class="form-text text-muted">Select new starting City</small>
         </div>
         <div>
-        <select [(ngModel)]="selectedDCity" *ngIf="cities" class="selectpicker mt-2" data-live-search="true" id="CityDestSelect" name="CityDestSelect" required>
+            <span class="form-label">Select new destination City</span>
+        <select [(ngModel)]="selectedDCity" *ngIf="cities" class="form-control mt-2" data-live-search="true" id="CityDestSelect" name="CityDestSelect" required>
             <option id="CityName" *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
         </select>
-        <small id="cityDHelp" class="form-text text-muted">Select new destination City</small>
       </div>
-      <div><h5>Travel after</h5></div>
+                <span class="form-label">Provide date</span>
                       <input [(ngModel)]="date" type="date" max="3000-12-31" min="1000-01-01" class="form-control" id="dateSetter"/>
-                <small id="dateHelp" class="form-text text-muted">Provide date</small>
-                    <input [(ngModel)]="hour" type="time" id="timeSetter"/>
-                <small id="hourHelp" class="form-text text-muted">Provide hour</small>
-                    <input [(ngModel)]="distance" (keypress)="numberOnly($event)" type="text">
-                <small id="distanceHelp" class="form-text text-muted">Provide distance</small>
+                      <span class="form-label">Provide hour</span>
+                    <input [(ngModel)]="hour" type="time" id="timeSetter" class="form-control"/>
+                    <span class="form-label">Provide distance</span>
+                    <input [(ngModel)]="distance" (keypress)="numberOnly($event)" type="text" class="form-control">
       </div>
       <button id="submitBtn" type="submit" class="btn btn-primary">Submit</button>
   </section>

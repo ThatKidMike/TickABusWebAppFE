@@ -1,7 +1,8 @@
 <section class="container">
-    <h1>Modify Track</h1>
+    <h1>Delete Track</h1>
       <div class="form-group">
-        <select [(ngModel)]="selectedTrack" *ngIf="tracks" class="selectpicker mt-2" data-live-search="true" [(ngModel)]="selectedTrack" id="TrackSelect" name="TrackSelect" required>
+            <span class="form-label">Select track to delete</span>
+        <select [(ngModel)]="selectedTrack" *ngIf="tracks" class="form-control" data-live-search="true" [(ngModel)]="selectedTrack" id="TrackSelect" name="TrackSelect" required>
             <option id="CityName" *ngFor="let track of tracks" [ngValue]="track">
               {{track.startingCityId}} -> {{track.destinationCityId}} -> {{track.date}} -> {{track.distance}}</option>
         </select>

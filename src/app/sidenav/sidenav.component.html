@@ -1,67 +1,70 @@
-<nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: grey;">
+<nav class="navbar navbar-expand-md navbar-light fixed-top" style="background: #4fa3e3">
+  
+  <div class="container">
+    <a class="navbar-brand" href="#" style="font-style: oblique; font-weight: bold;">TickABus</a>
+  
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <ul *ngIf="!loggedIn()" class="navbar-nav">
+        <button data-toggle="dropdown" type="button" id="drpdwn_register" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Register</button>
+        <div class="dropdown-menu" aria-labelledby="drpdwn_register">
+            <form class="px-4 py-3" (ngSubmit)="register()" #registerForm="ngForm">
+              <div class="form-group">
+                <label class="form-label" for="drpwdn_email">Email address</label>
+                <input type="email" class="form-control mr-sm-2" name="email" id="drpwdn_email" placeholder="Email Address" [(ngModel)]="model.Email" #email="ngModel">
+                <label class="form-label" for="drpwdn_username">Username</label>
+                <input type="text" class="form-control mr-sm-2" name="username" id="drpwdn_username" placeholder="Username" [(ngModel)]="model.Username" #username="ngModel">
+                <label class="form-label" for="drpwdn_name">Name</label>
+                <input type="text" class="form-control mr-sm-2" name="name" id="drpwdn_name" placeholder="Name" [(ngModel)]="model.Name" #name="ngModel">
+                <label class="form-label" for="drpwdn_surname">Surname</label>
+                <input  type="text" class="form-control mr-sm-2" name="surname" id="drpwdn_surname" placeholder="Surname" [(ngModel)]="model.Surname" #surname="ngModel">
+                <label class="form-label" for="drpwdn_password">Password</label>
+                <input type="password" class="form-control mr-sm-2" name="password" id="drpwdn_password" placeholder="Password" [(ngModel)]="model.Password" #password="ngModel">
+                <label class="form-label" for="drpwdn_password">Password confirmation</label>
+                <input type="password" class="form-control mr-sm-2" id="drpwdn_passwordConf" data-match="#drpwdn_password" data-match-error="Passwords don't match" placeholder="Password Confirmation" required>
+              </div>
+              <button class="submit-btn my-2 my-sm-0" type="submit">Submit</button>
+            </form>
+        </div>
+      </ul>
+  
+      <nav id="nav-menu-container">
+      <ul class="nav-menu">
+      <li><a *ngIf="isAdmin() && loggedIn()" [routerLink]="['/addcity']">Add city</a></li> 
+      <li><a *ngIf="isAdmin() && loggedIn()" [routerLink]="['/modifycity']">Modify city</a></li> 
+      <li><a *ngIf="isAdmin() && loggedIn()" [routerLink]="['/deletecity']">Delete city</a></li> 
+      <li><a *ngIf="isAdmin() && loggedIn()" [routerLink]="['/addtrack']">Add track</a></li> 
+      <li><a *ngIf="isAdmin() && loggedIn()" [routerLink]="['/modifytrack']">Modify track</a></li> 
+      <li><a *ngIf="isAdmin() && loggedIn()" [routerLink]="['/deletetrack']">Delete track</a></li> 
+      </ul>
+      </nav>
+      
+      <div id="dropdown" *ngIf="loggedIn() && !isAdmin()" class="dropdown" dropdown>
+    <a class="dropdown-toggle" dropdownToggle>
+        Welcome {{authService.decodedToken.unique_name}}
+    </a>
 
-  <a class="navbar-brand" href="#" style="font-style: oblique; font-weight: bold;">TickABus</a>
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <ul *ngIf="!loggedIn()" class="navbar-nav mr-auto">
-      <button data-toggle="dropdown" type="button" id="drpdwn_register" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Register</button>
-      <div class="dropdown-menu" aria-labelledby="drpdwn_register">
-          <form class="px-4 py-3" (ngSubmit)="register()" #registerForm="ngForm">
-            <div class="form-group">
-              <label for="drpwdn_email">Email address</label>
-              <input type="email" class="form-control mr-sm-2" name="email" id="drpwdn_email" placeholder="Email Address" [(ngModel)]="model.Email" #email="ngModel">
-              <label for="drpwdn_username">Username</label>
-              <input type="text" class="form-control mr-sm-2" name="username" id="drpwdn_username" placeholder="Username" [(ngModel)]="model.Username" #username="ngModel">
-              <label for="drpwdn_name">Name</label>
-              <input type="text" class="form-control mr-sm-2" name="name" id="drpwdn_name" placeholder="Name" [(ngModel)]="model.Name" #name="ngModel">
-              <label for="drpwdn_surname">Surname</label>
-              <input type="text" class="form-control mr-sm-2" name="surname" id="drpwdn_surname" placeholder="Surname" [(ngModel)]="model.Surname" #surname="ngModel">
-              <label for="drpwdn_password">Password</label>
-              <input type="password" class="form-control mr-sm-2" name="password" id="drpwdn_password" placeholder="Password" [(ngModel)]="model.Password" #password="ngModel">
-              <label for="drpwdn_password">Password confirmation</label>
-              <input type="password" class="form-control mr-sm-2" id="drpwdn_passwordConf" data-match="#drpwdn_password" data-match-error="Passwords don't match" placeholder="Password Confirmation" required>
-            </div>
-            <button class="btn btn-success my-2 my-sm-0" type="submit">Submit</button>
-          </form>
+    <div class="dropdown-menu mt-3" *dropdownMenu>
+        <a *ngIf="!isAdmin()" class="dropdown-item" [routerLink]="['/tickets']" href="#">
+            <i class="fa fa-ticket"></i>Check your tickets
+        </a>
+      <div class="dropdown-divider"></div>
+      <div class="col text-center">
+      <button class="btn btn-warning" (click)="logout()">Logout</button>
       </div>
-    </ul>
-
-    <button *ngIf="isAdmin() && loggedIn()" class="btn-success" [routerLink]="['/addcity']">Add city</button> 
-    <button *ngIf="isAdmin() && loggedIn()" class="btn-success" [routerLink]="['/modifycity']">Modify city</button> 
-    <button *ngIf="isAdmin() && loggedIn()" class="btn-success" [routerLink]="['/deletecity']">Delete city</button>
-    <button *ngIf="isAdmin() && loggedIn()" class="btn-success" [routerLink]="['/addtrack']">Add track</button>
-    <button *ngIf="isAdmin() && loggedIn()" class="btn-success" [routerLink]="['/modifytrack']">Modify track</button>
-    <button *ngIf="isAdmin() && loggedIn()" class="btn-success" [routerLink]="['/deletetrack']">Delete track</button>
-
-    <div class="container" style="display: flex; justify-content: flex-end">
-        <button *ngIf="isAdmin() && loggedIn()" class="btn btn-warning" (click)="logout()">Logout</button>
-    </div>
-
-    <div *ngIf="loggedIn() && !isAdmin()" class="dropdown ml-auto" dropdown>
-  <a class="dropdown-toggle" dropdownToggle>
-    Welcome {{authService.decodedToken.unique_name}}
-  </a>
-
-  <div class="dropdown-menu mt-3" *dropdownMenu>
-      <a *ngIf="!isAdmin()" class="dropdown-item" [routerLink]="['/tickets']" href="#">
-          <i class="fa fa-ticket"></i>Check your tickets
-      </a>
-    <div class="dropdown-divider"></div>
-    <div class="col text-center">
-    <button class="btn btn-warning" (click)="logout()">Logout</button>
     </div>
   </div>
-</div>
+  
+      <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline ml-auto" (ngSubmit)="login()">
+        <input class="form-control mr-sm-2" type="text" placeholder="Username" name="username" required [(ngModel)]="model.username" #username="ngModel">
+        <input class="form-control mr-sm-2" type="password" placeholder="Password" name="password" required [(ngModel)]="model.password" #password="ngModel">
+        <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
+      </form>
+      <button *ngIf="isAdmin() && loggedIn()" class="btn btn-warning" (click)="logout()">Logout</button>
+  
+    </div>
+  </nav>
 
-    <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline ml-auto" (ngSubmit)="login()">
-      <input class="form-control mr-sm-2" type="text" placeholder="Username" name="username" required [(ngModel)]="model.username" #username="ngModel">
-      <input class="form-control mr-sm-2" type="password" placeholder="Password" name="password" required [(ngModel)]="model.password" #password="ngModel">
-      <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
-    </form>
-
- 
-</nav>
 

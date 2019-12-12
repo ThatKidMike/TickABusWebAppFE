@@ -1,3 +1,4 @@
+import { TracksService } from './../_services/tracks.service';
 import { AlertifyService } from './../_services/alertify.service';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from './../_services/auth.service';
@@ -18,7 +19,8 @@ export class AddTrackComponent implements OnInit {
   distance: any;
   trackAddDTO: any = {};
 
-  constructor(private authService: AuthService, private http: HttpClient, private alertify: AlertifyService) { }
+  constructor(private authService: AuthService, private http: HttpClient, private alertify: AlertifyService,
+              private tracksService: TracksService) { }
 
   ngOnInit() {
     this.getCities();
@@ -26,7 +28,7 @@ export class AddTrackComponent implements OnInit {
   }
 
   getCities() {
-    this.http.get('http://localhost:5000/cities/').subscribe(response => {
+    this.tracksService.getCities().subscribe(response => {
       this.cities = response;
     }, error => {
       console.log(error);
@@ -43,7 +45,7 @@ export class AddTrackComponent implements OnInit {
         this.trackAddDTO.Date = this.date + ' ' + this.hour;
         this.trackAddDTO.Distance = parseInt(this.distance, 10);
         console.log(this.trackAddDTO);
-        this.http.post('http://localhost:5000/tracks/addtrack', this.trackAddDTO).subscribe(response => {
+        this.tracksService.addTrack(this.trackAddDTO).subscribe(response => {
           console.log(response);
           this.alertify.success('Track was added');
         }, error => {

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class SidenavComponent implements OnInit {
   model: any = {};
+  toggleBtn: any;
 
   constructor(private authService: AuthService, private alertify: AlertifyService, private router: Router) { }
 

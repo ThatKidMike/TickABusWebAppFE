@@ -1,3 +1,4 @@
+import { CitiesService } from './../_services/cities.service';
 import { AlertifyService } from './../_services/alertify.service';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from './../_services/auth.service';
@@ -13,7 +14,8 @@ export class AddCityComponent implements OnInit {
   newCityName: any;
   cityDTO: any = {};
 
-  constructor(private authService: AuthService, private http: HttpClient, private alertify: AlertifyService) { }
+  constructor(private authService: AuthService, private http: HttpClient, private alertify: AlertifyService,
+              private citiesService: CitiesService) { }
 
   ngOnInit() {
     document.getElementById('submitBtn').addEventListener('click', this.addCity.bind(this), true);
@@ -21,7 +23,7 @@ export class AddCityComponent implements OnInit {
 
   addCity() {
     this.cityDTO.name = this.newCityName;
-    this.http.post('http://localhost:5000/cities/addcity', this.cityDTO).subscribe(response => {
+    this.citiesService.addCity(this.cityDTO).subscribe(response => {
       console.log(response);
       this.alertify.success('City was added');
     }, error => {
