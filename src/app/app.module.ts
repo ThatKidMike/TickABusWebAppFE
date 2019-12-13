@@ -29,6 +29,7 @@ import { HomeComponent } from './home/home.component';
 import { PaymentCompletedComponent } from './payment-completed/payment-completed.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { EqualValidatorDirective } from './equal-validator.directive';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -49,7 +50,8 @@ export function tokenGetter() {
       DeleteCityComponent,
       AddTrackComponent,
       ModifyTrackComponent,
-      DeleteTrackComponent
+      DeleteTrackComponent,
+      EqualValidatorDirective
    ],
    imports: [
       BrowserModule,

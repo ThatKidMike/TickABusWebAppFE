@@ -11,21 +11,65 @@
         <button data-toggle="dropdown" type="button" id="drpdwn_register" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Register</button>
         <div class="dropdown-menu" aria-labelledby="drpdwn_register">
             <form class="px-4 py-3" (ngSubmit)="register()" #registerForm="ngForm">
-              <div class="form-group">
+
+              <div class="form-group" [class.has-success]="email.valid">
                 <label class="form-label" for="drpwdn_email">Email address</label>
-                <input type="email" class="form-control mr-sm-2" name="email" id="drpwdn_email" placeholder="Email Address" [(ngModel)]="model.Email" #email="ngModel">
-                <label class="form-label" for="drpwdn_username">Username</label>
-                <input type="text" class="form-control mr-sm-2" name="username" id="drpwdn_username" placeholder="Username" [(ngModel)]="model.Username" #username="ngModel">
-                <label class="form-label" for="drpwdn_name">Name</label>
-                <input type="text" class="form-control mr-sm-2" name="name" id="drpwdn_name" placeholder="Name" [(ngModel)]="model.Name" #name="ngModel">
-                <label class="form-label" for="drpwdn_surname">Surname</label>
-                <input  type="text" class="form-control mr-sm-2" name="surname" id="drpwdn_surname" placeholder="Surname" [(ngModel)]="model.Surname" #surname="ngModel">
-                <label class="form-label" for="drpwdn_password">Password</label>
-                <input type="password" class="form-control mr-sm-2" name="password" id="drpwdn_password" placeholder="Password" [(ngModel)]="model.Password" #password="ngModel">
-                <label class="form-label" for="drpwdn_password">Password confirmation</label>
-                <input type="password" class="form-control mr-sm-2" id="drpwdn_passwordConf" data-match="#drpwdn_password" data-match-error="Passwords don't match" placeholder="Password Confirmation" required>
+                <input [email]="model.email!==''" required [class.has-error]="email.invalid && email.touched" type="email" class="form-control mr-sm-2" name="email" id="drpwdn_email" placeholder="Email Address" 
+                [(ngModel)]="model.Email" #email="ngModel">
+                <span class="help-block" *ngIf="email.touched && email.errors?.required && email.invalid">
+                  Email is required
+                </span>
+                <span class="help-block" *ngIf="email.errors?.email && email.invalid">
+                  Email is invalid
+                </span>
               </div>
-              <button class="submit-btn my-2 my-sm-0" type="submit">Submit</button>
+                
+              <div class="form-group" [class.has-error]="username.invalid && username.touched" [class.has-success]="username.valid">
+                <label class="form-label" for="drpwdn_username">Username</label>
+                <input required type="text" class="form-control mr-sm-2" 
+                name="username" id="drpwdn_username" placeholder="Username" [(ngModel)]="model.Username" #username="ngModel">
+                <span class="help-block" *ngIf="username.touched && username.invalid">
+                  Username is required
+                </span>
+              </div>
+
+              <div class="form-group" [class.has-error]="name.touched && name.invalid" [class.has-success]="name.valid">
+                <label class="form-label" for="drpwdn_name">Name</label>
+                <input requierd type="text" class="form-control mr-sm-2" 
+                name="name" id="drpwdn_name" placeholder="Name" [(ngModel)]="model.Name" #name="ngModel">
+                <span class="help-block" *ngIf="name.touched && name.invalid">
+                  Name is required
+                </span>
+              </div>
+
+              <div class="form-group" [class.has-error]="surname.touched && surname.invalid" [class.has-success]="surname.valid">
+                <label class="form-label" for="drpwdn_surname">Surname</label>
+                <input required type="text" class="form-control mr-sm-2" name="surname" id="drpwdn_surname" placeholder="Surname" [(ngModel)]="model.Surname" #surname="ngModel">
+                <span class="help-block" *ngIf="surname.touched && surname.invalid">
+                  Surname is required
+                </span>
+              </div>
+        
+
+             
+              <div ngModelGroup="passwordGroup" [class.has-error]="confirmPassword.touched && confirmPassword.invalid && !confirmPassword.errors?.required" 
+              [class.has-success]="password.valid && confirmPassword.valid">
+                <label class="form-label" for="drpwdn_password">Password</label>
+                <input (input)="confirmPassword.control.updateValueAndValidity()" required type="password" class="form-control mr-sm-2" name="password" id="drpwdn_password" placeholder="Password" [(ngModel)]="model.Password" #password="ngModel">
+                <span class="help-block" *ngIf="password.touched && password.errors?.required">
+                  Password is required
+                </span>
+                  
+                <label class="form-label" for="drpwdn_password">Password confirmation</label>
+                <input required type="password" class="form-control mr-sm-2" name="confirmPassword" id="drpwdn_passwordConf" data-match="#drpwdn_password" data-match-error="Passwords don't match" 
+                placeholder="Password Confirmation" appEqualValidator="password" [(ngModel)]="model.confirmPassword" #confirmPassword="ngModel">
+                <span class="help-block" *ngIf="confirmPassword.touched && confirmPassword.errors?.required">
+                  Confirm Password is required</span>
+                  <span class="help-block" *ngIf="confirmPassword.touched && confirmPassword.errors?.notEqual && !confirmPassword.errors?.required">
+                    Passwords are not matched</span>
+              </div>
+              <button [disabled]="surname.invalid || username.invalid || name.invalid 
+              || email.invalid || password.invalid || confirmPassword.invalid" class="submit-btn my-2 my-sm-0" type="submit">Submit</button>
             </form>
         </div>
       </ul>

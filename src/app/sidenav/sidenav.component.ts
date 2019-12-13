@@ -30,7 +30,7 @@ export class SidenavComponent implements OnInit {
   register() {
     this.authService.register(this.model).subscribe(
       next => { this.alertify.success('Registered successfully'); this.login(); },
-      error => { this.alertify.error('Please provide all the details'); }
+      error => { this.alertify.error(`${error}`); }
     );
   }
 

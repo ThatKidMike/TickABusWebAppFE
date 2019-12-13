@@ -35,8 +35,7 @@ register(model: any) {
   return this.http.post(this.baseUrl + 'register', model)
     .pipe(
       map((response: any) => {
-        const user = response;
-        if (user) {}
+        return response;
       })
     );
 }

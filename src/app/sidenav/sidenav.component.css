@@ -4,6 +4,24 @@
     cursor: pointer;
 }
 
+.form-control.mr-sm-2 {
+  margin-bottom: 10px;
+}
+
+.help-block {
+  margin-bottom: 10px;
+}
+
+
+.submit-btn.my-2.my-sm-0 {
+  margin-top: 15px;
+}
+
+.submit-btn.my-2.my-sm-0:disabled {
+  opacity: 40%;
+  margin-top: 15px;
+}
+
 .h1 {
   font-family: 'Montserrat', sans-serif
 }
@@ -18,6 +36,10 @@
 .navbar-nav {
   position: relative;
   width: 25%;
+}
+
+.help-block {
+  color: red;
 }
 
 
