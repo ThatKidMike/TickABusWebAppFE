@@ -27,6 +27,7 @@
     "jquery": "^3.4.1",
     "ngx-bootstrap": "^5.3.2",
     "ngx-qrcode2": "0.0.9",
+    "ngx-skycons": "^1.2.2",
     "paypal-rest-sdk": "^1.8.1",
     "pdfmake": "^0.1.62",
     "rxjs": "~6.4.0",

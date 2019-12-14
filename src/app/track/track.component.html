@@ -4,9 +4,6 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-4">
-						<div class="booking-cta">
-							<h1></h1>
-						</div>
 					</div>
 					<div class="col-md-7 col-md-offset-1">
 						<div class="booking-form">
@@ -46,15 +43,16 @@
                     </div>
 								</div>
 								<div class="form-btn">
-                  <button class="submit-btn" id="proceedBtn" data-toggle="modal" data-target="#tracksModal">Show tracks</button>
-								</div>
+                  <button (click)="getWeather()" (click)="getTracks()" class="submit-btn" id="proceedBtn" data-toggle="modal" data-target="#tracksModal">Show tracks</button>
+                </div>
 							</form>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-  </div>
+    </div>
+   </div>
+
   
   <!-- Modal -->
 <div *ngIf="destinationCity && startingCity && dateParams && timeParams" class="modal fade" id="tracksModal" tabindex="-1" role="dialog" aria-labelledby="tracksModalLabel" aria-hidden="true">
@@ -62,6 +60,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Available tracks</h5>
+          <div name="darksky" ngDefaultControl *ngIf="weatherInfo && destinationCity" [(ngModel)]="weatherInfo" class="modal-weather">
+            {{destinationCity.name}} {{weatherInfo.currently.temperature}}&#8451;</div>
+          <sc-skycons *ngIf="weatherInfo && destinationCity" name="skycons" ngDefaultControl [(ngModel)]="weatherInfo" [weather]=weatherIcon(weatherInfo.currently.icon) [color]="'#4fa3e3'"></sc-skycons>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -83,8 +84,8 @@
         </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" it="closeBtn" data-dismiss="modal">Close</button>
-          <button *ngIf="authService.role === 'user'" type="button" class="btn btn-primary" id="checkoutBtn" data-dismiss="modal">Checkout</button>
+          <button (click)="dismissTracks()" type="button" class="btn btn-secondary" it="closeBtn" data-dismiss="modal">Close</button>
+          <button (click)="proceedToCheckout()" *ngIf="authService.role === 'user'" type="button" class="btn btn-primary" id="checkoutBtn" data-dismiss="modal">Checkout</button>
         </div>
       </div>
     </div>

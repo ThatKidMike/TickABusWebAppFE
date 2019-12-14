@@ -1,0 +1,9 @@
+{
+    "/darksky/*": {
+    "target": "https://api.darksky.net/forecast/0acd2ec0e5f6fb348e9668d98c6403c3",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {"^/darksky" : ""}
+  }
+}

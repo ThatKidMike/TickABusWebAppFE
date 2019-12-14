@@ -65,7 +65,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "TickabusWebAppFE:build"
+            "browserTarget": "TickabusWebAppFE:build",
+            "proxyConfig": "src/app/proxyServer/proxy.config.json"
           },
           "configurations": {
             "production": {

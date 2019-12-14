@@ -3,6 +3,15 @@
 	height: 100vh;
 }
 
+.modal-weather {
+	color: #4fa3e3;
+	font-size: 16px;
+	float: right;
+	margin-left: 130px;
+	font-weight: 700;
+	white-space: nowrap;
+}
+
 .section .panel-body {
 	border-radius: 5%;
 }
@@ -15,6 +24,7 @@
 	right: 0;
 	-webkit-transform: translateY(-50%);
 	transform: translateY(-50%);
+	opacity: 90%;
 }
 
 #booking {

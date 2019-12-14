@@ -1,7 +1,49 @@
+.section {
+	position: relative;
+	height: 100vh;
+}
+
+.section .panel-body {
+	border-radius: 5%;
+}
+
+.regHome {
+	margin-right: 160px;
+	color: #4fa3e3;
+}
+
+.logHome {
+	color: #4fa3e3;
+}
+
+.section .section-center {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	right: 0;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
 #booking {
 	font-family: 'Lato', sans-serif;
-	background-image: url('../../img/background.jpg');
 	background-size: cover;
 	background-position: center;
+	color: #191a1e;
+}
+
+.booking-cta {
+	margin-top: 45px;
+}
+
+.booking-cta h1 {
+	font-size: 52px;
+	text-transform: uppercase;
+	color: #4fa3e3;
+	font-weight: 400;
+}
+
+.booking-cta p {
+	font-size: 22px;
 	color: #191a1e;
 }

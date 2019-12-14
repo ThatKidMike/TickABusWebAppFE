@@ -30,6 +30,7 @@ import { PaymentCompletedComponent } from './payment-completed/payment-completed
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { EqualValidatorDirective } from './equal-validator.directive';
+import { SkyconsModule } from 'ngx-skycons';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -68,7 +69,8 @@ export function tokenGetter() {
             blacklistedRoutes: ['localhost:5000/auth/']
          }
       }),
-      NgxQRCodeModule
+      NgxQRCodeModule,
+      SkyconsModule
    ],
    providers: [
       AuthService,
